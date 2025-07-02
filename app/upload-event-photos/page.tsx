@@ -42,7 +42,6 @@ export default function UploadEventPhotosPage() {
   const [eventFound, setEventFound] = useState<any>(null);
   const [isDragActive, setIsDragActive] = useState(false);
 
-  // Mock event data for validation
   const mockEvents = [
     { id: 'evt_001', name: 'Summer Wedding 2024', date: '2024-06-15', location: 'Central Park, NYC' },
     { id: 'evt_002', name: 'Corporate Retreat', date: '2024-05-20', location: 'Mountain Resort' },
@@ -174,7 +173,6 @@ export default function UploadEventPhotosPage() {
       await new Promise(resolve => setTimeout(resolve, 1000));
       toast.success('Photos uploaded successfully! Thank you for participating!');
       
-      // Reset form
       setEventId('');
       setParticipantName('');
       setParticipantEmail('');
@@ -216,7 +214,6 @@ export default function UploadEventPhotosPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-cyan-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      {/* Header */}
       <header className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
@@ -233,7 +230,6 @@ export default function UploadEventPhotosPage() {
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
-          {/* Page Header */}
           <div className="text-center mb-12">
             <Badge variant="secondary" className="mb-4">
               <Camera className="w-4 h-4 mr-2" />
@@ -247,7 +243,6 @@ export default function UploadEventPhotosPage() {
             </p>
           </div>
 
-          {/* Event Information */}
           <Card className="mb-8">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -327,7 +322,6 @@ export default function UploadEventPhotosPage() {
             </CardContent>
           </Card>
 
-          {/* Photo Upload */}
           <Card className="mb-8">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -339,7 +333,6 @@ export default function UploadEventPhotosPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              {/* Drop Zone */}
               <div
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
@@ -383,7 +376,6 @@ export default function UploadEventPhotosPage() {
                 )}
               </div>
 
-              {/* File List */}
               {uploadedFiles.length > 0 && (
                 <div className="space-y-4">
                   <h3 className="font-medium flex items-center gap-2">
@@ -452,7 +444,6 @@ export default function UploadEventPhotosPage() {
             </CardContent>
           </Card>
 
-          {/* Submit Button */}
           <div className="flex justify-center">
             <Button 
               size="lg" 
@@ -474,7 +465,6 @@ export default function UploadEventPhotosPage() {
             </Button>
           </div>
 
-          {/* Info Card */}
           <Card className="mt-8 bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800">
             <CardContent className="p-6">
               <div className="flex items-start gap-3">

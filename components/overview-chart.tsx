@@ -1,6 +1,6 @@
 "use client";
 
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const data = [
   { name: 'Jan', revenue: 4000, uploads: 240 },
@@ -30,27 +30,17 @@ export function OverviewChart() {
           <Line 
             type="monotone" 
             dataKey="revenue" 
-            stroke="url(#colorRevenue)" 
+            stroke="#8b5cf6" 
             strokeWidth={3}
             dot={{ fill: '#8b5cf6', strokeWidth: 2 }}
           />
           <Line 
             type="monotone" 
             dataKey="uploads" 
-            stroke="url(#colorUploads)" 
+            stroke="#06b6d4" 
             strokeWidth={3}
             dot={{ fill: '#06b6d4', strokeWidth: 2 }}
           />
-          <defs>
-            <linearGradient id="colorRevenue" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#8b5cf6" />
-              <stop offset="100%" stopColor="#06b6d4" />
-            </linearGradient>
-            <linearGradient id="colorUploads" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#06b6d4" />
-              <stop offset="100%" stopColor="#10b981" />
-            </linearGradient>
-          </defs>
         </LineChart>
       </ResponsiveContainer>
     </div>

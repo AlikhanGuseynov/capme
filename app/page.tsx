@@ -15,7 +15,11 @@ import {
   ArrowRight,
   Play,
   Upload,
-  Briefcase
+  Briefcase,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Twitter
 } from 'lucide-react';
 import Link from 'next/link';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -251,16 +255,100 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="container mx-auto px-4 py-8 border-t">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="flex items-center gap-2 mb-4 md:mb-0">
-            <div className="w-6 h-6 rounded bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center">
-              <Camera className="w-4 h-4 text-white" />
+      <footer className="container mx-auto px-4 py-12 border-t">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            {/* Brand */}
+            <div className="md:col-span-1">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center">
+                  <Camera className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-cyan-600 bg-clip-text text-transparent">
+                  Capme.ai
+                </span>
+              </div>
+              <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                AI-powered photo discovery platform for events. Find your memories instantly.
+              </p>
+              {/* Social Media Icons */}
+              <div className="flex gap-3">
+                <a 
+                  href="https://www.facebook.com/capmeai" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white hover:bg-blue-700 transition-colors"
+                >
+                  <Facebook className="w-4 h-4" />
+                </a>
+                <a 
+                  href="http://instagram.com/capmeai" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-full bg-pink-600 flex items-center justify-center text-white hover:bg-pink-700 transition-colors"
+                >
+                  <Instagram className="w-4 h-4" />
+                </a>
+                <a 
+                  href="http://linkedin.com/company/capmeai" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-full bg-blue-700 flex items-center justify-center text-white hover:bg-blue-800 transition-colors"
+                >
+                  <Linkedin className="w-4 h-4" />
+                </a>
+                <a 
+                  href="http://x.com/capmeai" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-white hover:bg-gray-800 transition-colors"
+                >
+                  <Twitter className="w-4 h-4" />
+                </a>
+              </div>
             </div>
-            <span className="font-semibold">Capme.ai</span>
+
+            {/* Product */}
+            <div>
+              <h3 className="font-semibold mb-4">Product</h3>
+              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                <li><Link href="/find-photos" className="hover:text-purple-600">Find Photos</Link></li>
+                <li><Link href="/upload-event-photos" className="hover:text-purple-600">Upload Photos</Link></li>
+                <li><Link href="/opportunities" className="hover:text-purple-600">Opportunities</Link></li>
+                <li><Link href="/admin" className="hover:text-purple-600">Admin Portal</Link></li>
+              </ul>
+            </div>
+
+            {/* Company */}
+            <div>
+              <h3 className="font-semibold mb-4">Company</h3>
+              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                <li><Link href="/about" className="hover:text-purple-600">About Us</Link></li>
+                <li><Link href="/contact" className="hover:text-purple-600">Contact</Link></li>
+                <li><Link href="/careers" className="hover:text-purple-600">Careers</Link></li>
+                <li><Link href="/blog" className="hover:text-purple-600">Blog</Link></li>
+              </ul>
+            </div>
+
+            {/* Legal */}
+            <div>
+              <h3 className="font-semibold mb-4">Legal</h3>
+              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                <li><Link href="/terms" className="hover:text-purple-600">Terms & Conditions</Link></li>
+                <li><Link href="/privacy" className="hover:text-purple-600">Privacy Policy</Link></li>
+                <li><Link href="/cookies" className="hover:text-purple-600">Cookie Policy</Link></li>
+                <li><Link href="/support" className="hover:text-purple-600">Support</Link></li>
+              </ul>
+            </div>
           </div>
-          <div className="text-sm text-gray-600 dark:text-gray-300">
-            © 2024 Capme.ai. All rights reserved.
+
+          <div className="border-t pt-8 flex flex-col md:flex-row justify-between items-center">
+            <div className="text-sm text-gray-600 dark:text-gray-300 mb-4 md:mb-0">
+              © 2025 Capme.ai. All rights reserved.
+            </div>
+            <div className="text-sm text-gray-600 dark:text-gray-300">
+              Made with ❤️ for event photographers and organizers
+            </div>
           </div>
         </div>
       </footer>

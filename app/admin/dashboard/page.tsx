@@ -14,7 +14,12 @@ import {
   Activity,
   Eye,
   Star,
-  AlertCircle
+  AlertCircle,
+  Users,
+  Shield,
+  Database,
+  Server,
+  Settings
 } from 'lucide-react';
 import Link from 'next/link';
 import { AdminLayout } from '@/components/admin-layout';
@@ -67,11 +72,18 @@ export default function AdminDashboard() {
     { label: "Success Rate", value: "97.3%", icon: Star }
   ];
 
+  const systemStats = [
+    { label: "Server Uptime", value: "99.9%", icon: Server, color: "text-green-500" },
+    { label: "Database Health", value: "Optimal", icon: Database, color: "text-blue-500" },
+    { label: "AI Processing", value: "Active", icon: Zap, color: "text-purple-500" },
+    { label: "Security Status", value: "Secure", icon: Shield, color: "text-green-500" }
+  ];
+
   const recentEvents = [
-    { id: 1, name: "Summer Wedding 2024", date: "2024-06-15", photos: 234, status: "active" },
-    { id: 2, name: "Corporate Retreat", date: "2024-06-10", photos: 156, status: "completed" },
-    { id: 3, name: "Birthday Party", date: "2024-06-08", photos: 89, status: "processing" },
-    { id: 4, name: "College Reunion", date: "2024-06-05", photos: 445, status: "completed" }
+    { id: 1, name: "Summer Wedding 2024", date: "2024-06-15", photos: 234, status: "active", organizer: "John Smith" },
+    { id: 2, name: "Corporate Retreat", date: "2024-06-10", photos: 156, status: "completed", organizer: "TechCorp Inc." },
+    { id: 3, name: "Birthday Party", date: "2024-06-08", photos: 89, status: "processing", organizer: "Sarah Johnson" },
+    { id: 4, name: "College Reunion", date: "2024-06-05", photos: 445, status: "completed", organizer: "Alumni Association" }
   ];
 
   const getStatusColor = (status: string) => {
@@ -87,11 +99,27 @@ export default function AdminDashboard() {
     <AdminLayout>
       <div className="space-y-8">
         {/* Header */}
-        <div>
-          <h1 className="text-3xl font-bold">Dashboard</h1>
-          <p className="text-gray-600 dark:text-gray-300">
-            Welcome back! Here's what's happening with your events.
-          </p>
+        <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
+          <div>
+            <h1 className="text-3xl font-bold">Super Admin Dashboard</h1>
+            <p className="text-gray-600 dark:text-gray-300">
+              Complete platform overview and system management
+            </p>
+          </div>
+          <div className="flex gap-2">
+            <Link href="/admin/system">
+              <Button variant="outline">
+                <Settings className="w-4 h-4 mr-2" />
+                System Settings
+              </Button>
+            </Link>
+            <Link href="/admin/users">
+              <Button className="bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white">
+                <Users className="w-4 h-4 mr-2" />
+                Manage Users
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Time Range Selector */}
@@ -142,14 +170,42 @@ export default function AdminDashboard() {
           ))}
         </div>
 
+        {/* System Health */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Shield className="w-5 h-5" />
+              System Health
+            </CardTitle>
+            <CardDescription>
+              Real-time system status and performance metrics
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              {systemStats.map((stat, index) => (
+                <div key={index} className="flex items-center gap-3 p-4 border rounded-lg">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-purple-500 to-cyan-500 flex items-center justify-center">
+                    <stat.icon className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-medium">{stat.value}</p>
+                    <p className="text-sm text-gray-500">{stat.label}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Charts and Quick Stats */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Overview Chart */}
           <Card className="lg:col-span-2">
             <CardHeader>
-              <CardTitle>Overview</CardTitle>
+              <CardTitle>Platform Overview</CardTitle>
               <CardDescription>
-                Revenue and activity trends over time
+                Revenue and activity trends across all events
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -162,7 +218,7 @@ export default function AdminDashboard() {
             <CardHeader>
               <CardTitle>Quick Stats</CardTitle>
               <CardDescription>
-                Real-time metrics
+                Real-time platform metrics
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -181,21 +237,70 @@ export default function AdminDashboard() {
           </Card>
         </div>
 
+        {/* Admin Tools */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0">
+            <CardContent className="p-6">
+              <Users className="w-12 h-12 mb-4" />
+              <h3 className="text-xl font-bold mb-2">User Management</h3>
+              <p className="mb-4 opacity-90">
+                Manage organizers, view user activity, and handle permissions
+              </p>
+              <Link href="/admin/users">
+                <Button variant="secondary" className="text-blue-600">
+                  Manage Users
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-br from-purple-500 to-purple-600 text-white border-0">
+            <CardContent className="p-6">
+              <Database className="w-12 h-12 mb-4" />
+              <h3 className="text-xl font-bold mb-2">Database Management</h3>
+              <p className="mb-4 opacity-90">
+                Monitor database performance and manage data retention
+              </p>
+              <Link href="/admin/database">
+                <Button variant="secondary" className="text-purple-600">
+                  View Database
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-br from-green-500 to-green-600 text-white border-0">
+            <CardContent className="p-6">
+              <Settings className="w-12 h-12 mb-4" />
+              <h3 className="text-xl font-bold mb-2">System Settings</h3>
+              <p className="mb-4 opacity-90">
+                Configure platform settings and AI processing parameters
+              </p>
+              <Link href="/admin/system">
+                <Button variant="secondary" className="text-green-600">
+                  System Config
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+        </div>
+
         {/* Content Tabs */}
         <Tabs defaultValue="events" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="events">Recent Events</TabsTrigger>
-            <TabsTrigger value="activity">Recent Activity</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="events">All Events</TabsTrigger>
+            <TabsTrigger value="activity">System Activity</TabsTrigger>
             <TabsTrigger value="alerts">System Alerts</TabsTrigger>
+            <TabsTrigger value="reports">Reports</TabsTrigger>
           </TabsList>
 
           <TabsContent value="events">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between">
                 <div>
-                  <CardTitle>Recent Events</CardTitle>
+                  <CardTitle>All Platform Events</CardTitle>
                   <CardDescription>
-                    Latest event activity and status
+                    Events across all organizers and their status
                   </CardDescription>
                 </div>
                 <Link href="/admin/events">
@@ -214,7 +319,7 @@ export default function AdminDashboard() {
                         </div>
                         <div>
                           <p className="font-medium">{event.name}</p>
-                          <p className="text-sm text-gray-500">{event.date}</p>
+                          <p className="text-sm text-gray-500">by {event.organizer} • {event.date}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
@@ -238,9 +343,9 @@ export default function AdminDashboard() {
           <TabsContent value="activity">
             <Card>
               <CardHeader>
-                <CardTitle>Recent Activity</CardTitle>
+                <CardTitle>System Activity</CardTitle>
                 <CardDescription>
-                  Latest system activity and user actions
+                  Platform-wide activity and system events
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -254,7 +359,7 @@ export default function AdminDashboard() {
               <CardHeader>
                 <CardTitle>System Alerts</CardTitle>
                 <CardDescription>
-                  Important notifications and warnings
+                  Critical system notifications and warnings
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -266,7 +371,7 @@ export default function AdminDashboard() {
                         High storage usage detected
                       </p>
                       <p className="text-sm text-yellow-700 dark:text-yellow-300">
-                        Storage is at 85% capacity. Consider cleaning up old events.
+                        Storage is at 85% capacity. Consider cleaning up old events or upgrading storage.
                       </p>
                     </div>
                   </div>
@@ -275,12 +380,67 @@ export default function AdminDashboard() {
                     <AlertCircle className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="font-medium text-blue-800 dark:text-blue-200">
-                        New feature available
+                        AI processing queue
                       </p>
                       <p className="text-sm text-blue-700 dark:text-blue-300">
-                        Video face recognition is now available in beta.
+                        45 photos in AI processing queue. Average processing time: 2.3 seconds.
                       </p>
                     </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-4 border rounded-lg bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800">
+                    <AlertCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-medium text-green-800 dark:text-green-200">
+                        System backup completed
+                      </p>
+                      <p className="text-sm text-green-700 dark:text-green-300">
+                        Daily backup completed successfully. All data secured.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="reports">
+            <Card>
+              <CardHeader>
+                <CardTitle>System Reports</CardTitle>
+                <CardDescription>
+                  Generate and download platform reports
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-4 border rounded-lg">
+                    <h4 className="font-medium mb-2">Revenue Report</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                      Detailed revenue breakdown by events and time periods
+                    </p>
+                    <Button variant="outline" size="sm">Generate Report</Button>
+                  </div>
+                  <div className="p-4 border rounded-lg">
+                    <h4 className="font-medium mb-2">User Activity Report</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                      User engagement and platform usage statistics
+                    </p>
+                    <Button variant="outline" size="sm">Generate Report</Button>
+                  </div>
+                  <div className="p-4 border rounded-lg">
+                    <h4 className="font-medium mb-2">System Performance</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                      AI processing times and system performance metrics
+                    </p>
+                    <Button variant="outline" size="sm">Generate Report</Button>
+                  </div>
+                  <div className="p-4 border rounded-lg">
+                    <h4 className="font-medium mb-2">Security Audit</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                      Security events and access logs analysis
+                    </p>
+                    <Button variant="outline" size="sm">Generate Report</Button>
                   </div>
                 </div>
               </CardContent>

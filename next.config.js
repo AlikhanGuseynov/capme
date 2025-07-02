@@ -14,9 +14,8 @@ const nextConfig = {
     unoptimized: true,
     domains: ['images.pexels.com'],
   },
-  swcMinify: false,
-  compiler: {
-    removeConsole: false,
+  experimental: {
+    esmExternals: false,
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
@@ -34,14 +33,26 @@ const nextConfig = {
         assert: false,
         os: false,
         path: false,
+        buffer: false,
+        util: false,
+        events: false,
+        querystring: false,
       };
     }
     
-    // Handle potential module resolution issues
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': require('path').resolve(__dirname),
     };
+    
+    // Ignore specific modules that cause issues
+    config.externals = config.externals || [];
+    if (!isServer) {
+      config.externals.push({
+        'utf-8-validate': 'commonjs utf-8-validate',
+        'bufferutil': 'commonjs bufferutil',
+      });
+    }
     
     return config;
   },

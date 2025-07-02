@@ -16,18 +16,16 @@ import Link from 'next/link';
 
 export default function ThankYouPage() {
   const params = useParams();
-  const eventId = params.eventId as string;
+  const eventId = (params?.eventId as string) || '';
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-cyan-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-2xl mx-auto text-center">
-          {/* Success Icon */}
           <div className="w-20 h-20 mx-auto mb-8 rounded-full bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center animate-pulse">
             <CheckCircle className="w-12 h-12 text-white" />
           </div>
 
-          {/* Success Message */}
           <Card className="glass-effect border-0 mb-8">
             <CardHeader>
               <Badge variant="secondary" className="mx-auto mb-4 w-fit">
@@ -63,7 +61,6 @@ export default function ThankYouPage() {
             </CardContent>
           </Card>
 
-          {/* Action Buttons */}
           <div className="space-y-4">
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href={`/upload/${eventId}`}>
@@ -89,14 +86,13 @@ export default function ThankYouPage() {
             </Link>
           </div>
 
-          {/* Share Section */}
           <Card className="mt-12 glass-effect border-0">
             <CardContent className="p-6">
               <h3 className="font-semibold mb-3">📱 Share with Friends</h3>
               <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
                 Tell others about this event so they can upload their photos too!
               </p>
-              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 text-sm font-mono">
+              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 text-sm font-mono break-all">
                 {typeof window !== 'undefined' && `${window.location.origin}/upload/${eventId}`}
               </div>
             </CardContent>

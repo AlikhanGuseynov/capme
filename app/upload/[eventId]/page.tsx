@@ -31,7 +31,7 @@ interface UploadedFile {
 export default function EventUploadPage() {
   const params = useParams();
   const router = useRouter();
-  const eventId = params.eventId as string;
+  const eventId = (params?.eventId as string) || '';
   
   const [uploaderName, setUploaderName] = useState('');
   const [uploaderEmail, setUploaderEmail] = useState('');
@@ -96,7 +96,6 @@ export default function EventUploadPage() {
   const removeFile = (id: string) => {
     setUploadedFiles(prev => {
       const updated = prev.filter(f => f.id !== id);
-      // Cleanup preview URLs
       const fileToRemove = prev.find(f => f.id === id);
       if (fileToRemove) {
         URL.revokeObjectURL(fileToRemove.preview);
@@ -106,7 +105,6 @@ export default function EventUploadPage() {
   };
 
   const simulateUpload = async (fileId: string) => {
-    // Simulate upload progress
     for (let progress = 0; progress <= 100; progress += 10) {
       await new Promise(resolve => setTimeout(resolve, 100));
       setUploadedFiles(prev => 
@@ -118,7 +116,6 @@ export default function EventUploadPage() {
       );
     }
 
-    // Simulate AI processing
     await new Promise(resolve => setTimeout(resolve, 2000));
     setUploadedFiles(prev => 
       prev.map(f => 
@@ -138,14 +135,12 @@ export default function EventUploadPage() {
     setIsSubmitting(true);
 
     try {
-      // Process each file
       for (const file of uploadedFiles) {
         if (file.status === 'pending') {
           await simulateUpload(file.id);
         }
       }
 
-      // Simulate saving to database
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       toast.success('All files uploaded successfully!');
@@ -189,7 +184,6 @@ export default function EventUploadPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-cyan-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <div className="container mx-auto px-4 py-8">
-        {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center">
@@ -209,7 +203,6 @@ export default function EventUploadPage() {
         </div>
 
         <div className="max-w-4xl mx-auto space-y-8">
-          {/* Upload Form */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -221,7 +214,6 @@ export default function EventUploadPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              {/* Uploader Info */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="name">Your Name (Optional)</Label>
@@ -244,7 +236,6 @@ export default function EventUploadPage() {
                 </div>
               </div>
 
-              {/* Drop Zone */}
               <div
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
@@ -288,7 +279,6 @@ export default function EventUploadPage() {
                 )}
               </div>
 
-              {/* File List */}
               {uploadedFiles.length > 0 && (
                 <div className="space-y-4">
                   <h3 className="font-medium flex items-center gap-2">
@@ -299,7 +289,6 @@ export default function EventUploadPage() {
                   <div className="space-y-3">
                     {uploadedFiles.map((file) => (
                       <div key={file.id} className="flex items-center gap-4 p-4 border rounded-lg">
-                        {/* Preview */}
                         <div className="w-16 h-16 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
                           {file.file.type.startsWith('image/') ? (
                             <img 
@@ -314,14 +303,12 @@ export default function EventUploadPage() {
                           )}
                         </div>
                         
-                        {/* File Info */}
                         <div className="flex-1 min-w-0">
                           <p className="font-medium truncate">{file.file.name}</p>
                           <p className="text-sm text-gray-500">
                             {(file.file.size / 1024 / 1024).toFixed(1)} MB
                           </p>
                           
-                          {/* Progress */}
                           {file.status !== 'pending' && file.status !== 'completed' && (
                             <div className="mt-2">
                               <Progress 
@@ -337,7 +324,6 @@ export default function EventUploadPage() {
                           )}
                         </div>
                         
-                        {/* Status & Actions */}
                         <div className="flex items-center gap-2">
                           {getStatusIcon(file.status)}
                           <Badge 
@@ -364,7 +350,6 @@ export default function EventUploadPage() {
             </CardContent>
           </Card>
 
-          {/* Submit Button */}
           {uploadedFiles.length > 0 && (
             <div className="flex justify-center">
               <Button 

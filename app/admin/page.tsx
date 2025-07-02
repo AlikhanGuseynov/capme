@@ -10,7 +10,8 @@ import {
   Camera, 
   LogIn,
   Shield,
-  User
+  User,
+  UserPlus
 } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'sonner';
@@ -38,11 +39,11 @@ export default function AdminLoginPage() {
       
       // Demo credentials
       if (email === 'admin@capme.ai' && password === 'admin123') {
-        toast.success('Welcome back, Admin!');
+        toast.success('Welcome back, Super Admin!');
         router.push('/admin/dashboard');
       } else if (email === 'organizer@event.com' && password === 'organizer123') {
         toast.success('Welcome back, Event Organizer!');
-        router.push('/admin/dashboard');
+        router.push('/organizer/dashboard');
       } else {
         toast.error('Invalid credentials');
       }
@@ -148,6 +149,19 @@ export default function AdminLoginPage() {
                   <p><strong>Super Admin:</strong> admin@capme.ai / admin123</p>
                   <p><strong>Event Organizer:</strong> organizer@event.com / organizer123</p>
                 </div>
+              </div>
+
+              {/* Signup Link */}
+              <div className="mt-6 text-center">
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                  Don't have an account?
+                </p>
+                <Link href="/signup">
+                  <Button variant="outline" className="w-full">
+                    <UserPlus className="w-4 h-4 mr-2" />
+                    Sign Up as Event Organizer
+                  </Button>
+                </Link>
               </div>
             </CardContent>
           </Card>
